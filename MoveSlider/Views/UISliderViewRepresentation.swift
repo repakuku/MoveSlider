@@ -12,19 +12,12 @@ struct UISliderViewRepresentation: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UISlider {
         let uiSlider = UISlider()
-        let alpha = Double(game.computeScore()) / 100.0
-        
+
         uiSlider.minimumValue = 0
         uiSlider.maximumValue = 100
-        uiSlider.thumbTintColor = UIColor(
-            red: 255,
-            green: 0,
-            blue: 0,
-            alpha: alpha
-        )
         uiSlider.addTarget(
             context.coordinator,
-            action: #selector(Coordinator.didValueChanged),
+            action: #selector(Coordinator.didChangeSliderValue),
             for: .valueChanged
         )
         
@@ -32,13 +25,12 @@ struct UISliderViewRepresentation: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        let alpha = Double(game.computeScore()) / 100.0
         uiView.setValue(Float(game.currentValue), animated: true)
         uiView.thumbTintColor = UIColor(
-            red: 255,
+            red: 1,
             green: 0,
             blue: 0,
-            alpha: alpha
+            alpha: Double(game.computeScore()) / 100.0
         )
     }
     
@@ -57,13 +49,13 @@ struct UISliderViewRepresentation_Previews: PreviewProvider {
 
 extension UISliderViewRepresentation {
     class Coordinator: NSObject {
-        @EnvironmentObject var game: Game
+        @EnvironmentObject private var game: Game
         
         init(game: EnvironmentObject<Game>) {
             self._game = game
         }
         
-        @objc func didValueChanged(_ sender: UISlider) {
+        @objc func didChangeSliderValue(_ sender: UISlider) {
             game.currentValue = Double(sender.value)
         }
     }

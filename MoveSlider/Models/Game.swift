@@ -12,8 +12,8 @@ final class Game: ObservableObject {
     @Published var currentValue = Double.random(in: 0...100)
     
     func startNewGame() {
-        targetValue = Int.random(in: 0...100)
-        currentValue = Double.random(in: 0...100)
+        targetValue = Game().targetValue
+        currentValue = Game().currentValue
     }
     
     func computeScore() -> Int {
