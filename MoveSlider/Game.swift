@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class Game {
-    var targetValue = 0
-    var currentValue = 0.0
+final class Game: ObservableObject {
+    @Published var targetValue = Int.random(in: 0...100)
+    @Published var currentValue = Double.random(in: 0...100)
     
     func startNewGame() {
         targetValue = Int.random(in: 0...100)
