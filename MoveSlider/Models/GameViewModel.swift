@@ -11,14 +11,17 @@ final class GameViewModel: ObservableObject {
     @Published var game = Game()
     @Published var alertPresented = false
     
-    func startNewGame() {
-        game.targetValue = Game().targetValue
-        game.currentValue = Game().currentValue
+    var scores: Int {
+        100 - abs(game.targetValue - lround(game.currentValue))
     }
     
-    func computeScore() -> Int {
-        let difference = abs(game.targetValue - lround(game.currentValue))
-        return 100 - difference
+    var alpha: Double {
+        (100 - abs(Double(game.targetValue) - game.currentValue)) / 100
+    }
+    
+    func startNewGame() {
+        game.targetValue = Int.random(in: 0...100)
+        game.currentValue = Double.random(in: 0...100)
     }
     
     func showAlert() {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SliderView: View {
+struct GameSliderView: View {
     @ObservedObject var gameViewModel: GameViewModel
     
     var body: some View {
@@ -15,8 +15,7 @@ struct SliderView: View {
             Text("0")
             UISliderViewRepresentation(
                 value: $gameViewModel.game.currentValue,
-                score: gameViewModel.computeScore(),
-                alpha: Double(gameViewModel.computeScore()) / 100
+                alpha: gameViewModel.alpha
             )
             Text("100")
         }
@@ -25,6 +24,6 @@ struct SliderView: View {
 
 struct SliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderView(gameViewModel: GameViewModel())
+        GameSliderView(gameViewModel: GameViewModel())
     }
 }

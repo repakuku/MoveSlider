@@ -7,24 +7,27 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
     
     var body: some View {
         VStack(spacing: 30) {
             Text("Подвиньте слайдер как можно ближе к: \(gameViewModel.game.targetValue)")
             
-            SliderView(gameViewModel: gameViewModel)
+            GameSliderView(gameViewModel: gameViewModel)
 
             Button("Проверь меня!") {
                 gameViewModel.showAlert()
             }
-            .alert("Ваш счёт", isPresented: $gameViewModel.alertPresented) {
+            .alert(
+                "Ваш счёт",
+                isPresented: $gameViewModel.alertPresented
+            ) {
                 Button("Ok") {
                     gameViewModel.startNewGame()
                 }
             } message: {
-                Text("\(gameViewModel.computeScore())")
+                Text("\(gameViewModel.scores)")
             }
             
             Button("Начать заново") {
@@ -37,6 +40,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        GameView()
     }
 }

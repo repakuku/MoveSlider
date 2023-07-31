@@ -11,7 +11,7 @@ import SwiftUI
 struct MoveSliderApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GameView()
         }
     }
 }

@@ -11,7 +11,6 @@ struct UISliderViewRepresentation: UIViewRepresentable {
     
     @Binding var value: Double
     
-    let score: Int
     let alpha: Double
     
     func makeUIView(context: Context) -> UISlider {
@@ -19,6 +18,7 @@ struct UISliderViewRepresentation: UIViewRepresentable {
 
         uiSlider.minimumValue = 0
         uiSlider.maximumValue = 100
+        
         uiSlider.addTarget(
             context.coordinator,
             action: #selector(Coordinator.didChangeSliderValue),
@@ -34,19 +34,20 @@ struct UISliderViewRepresentation: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(value: _value)
+        Coordinator(value: $value)
     }
     
 }
 
 struct UISliderViewRepresentation_Previews: PreviewProvider {
     static var previews: some View {
-        UISliderViewRepresentation(value: .constant(10), score: 50, alpha: 1)
+        UISliderViewRepresentation(value: .constant(10), alpha: 1)
     }
 }
 
 extension UISliderViewRepresentation {
     class Coordinator: NSObject {
+        
         @Binding var value: Double
         
         init(value: Binding<Double>) {
