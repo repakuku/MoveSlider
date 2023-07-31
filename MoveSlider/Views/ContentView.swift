@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var game: Game
-    @State private var alertPresented = false
+    @StateObject private var gameViewModel = GameViewModel()
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("Подвиньте слайдер как можно ближе к: \(game.targetValue)")
+            Text("Подвиньте слайдер как можно ближе к: \(gameViewModel.game.targetValue)")
             
-            SliderView()
+            SliderView(gameViewModel: gameViewModel)
 
             Button("Проверь меня!") {
-                alertPresented.toggle()
+                gameViewModel.showAlert()
             }
-            .alert("Ваш счёт", isPresented: $alertPresented) {
+            .alert("Ваш счёт", isPresented: $gameViewModel.alertPresented) {
                 Button("Ok") {
-                    game.startNewGame()
+                    gameViewModel.startNewGame()
                 }
             } message: {
-                Text("\(game.computeScore())")
+                Text("\(gameViewModel.computeScore())")
             }
             
             Button("Начать заново") {
-                game.startNewGame()
+                gameViewModel.startNewGame()
             }
         }
         .padding()
@@ -39,6 +38,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Game())
     }
 }

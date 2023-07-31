@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct SliderView: View {
-    @EnvironmentObject private var game: Game
+    @ObservedObject var gameViewModel: GameViewModel
     
     var body: some View {
         HStack {
             Text("0")
-            UISliderViewRepresentation()
+            UISliderViewRepresentation(
+                value: $gameViewModel.game.currentValue,
+                score: gameViewModel.computeScore(),
+                alpha: Double(gameViewModel.computeScore()) / 100
+            )
             Text("100")
         }
     }
@@ -21,7 +25,6 @@ struct SliderView: View {
 
 struct SliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderView()
-            .environmentObject(Game())
+        SliderView(gameViewModel: GameViewModel())
     }
 }

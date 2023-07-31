@@ -2,22 +2,12 @@
 //  Game.swift
 //  MoveSlider
 //
-//  Created by Алексей Турулин on 7/28/23.
+//  Created by Алексей Турулин on 7/31/23.
 //
 
 import Foundation
 
-final class Game: ObservableObject {
-    @Published var targetValue = Int.random(in: 0...100)
-    @Published var currentValue = Double.random(in: 0...100)
-    
-    func startNewGame() {
-        targetValue = Game().targetValue
-        currentValue = Game().currentValue
-    }
-    
-    func computeScore() -> Int {
-        let difference = abs(targetValue - lround(currentValue))
-        return 100 - difference
-    }
+struct Game {
+    var targetValue = Int.random(in: 0...100)
+    var currentValue = Double.random(in: 0...100)
 }
