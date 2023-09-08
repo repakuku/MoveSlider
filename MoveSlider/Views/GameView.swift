@@ -12,25 +12,25 @@ struct GameView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("Подвиньте слайдер как можно ближе к: \(gameViewModel.game.targetValue)")
+            Text("Move slider as close to: \(gameViewModel.game.targetValue)")
             
             GameSliderView(gameViewModel: gameViewModel)
 
-            Button("Проверь меня!") {
+            Button("Check me!") {
                 gameViewModel.showAlert()
             }
             .alert(
-                "Ваш счёт",
+                "Start Again",
                 isPresented: $gameViewModel.alertPresented
             ) {
                 Button("Ok") {
                     gameViewModel.startNewGame()
                 }
             } message: {
-                Text("\(gameViewModel.scores)")
+                Text("Score: \(gameViewModel.scores)")
             }
             
-            Button("Начать заново") {
+            Button("Start Again") {
                 gameViewModel.startNewGame()
             }
         }
