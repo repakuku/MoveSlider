@@ -23,14 +23,14 @@ struct GameView: View {
                     gameViewModel.showAlert()
                 }
                 .alert(
-                    "Start Again",
+                    "Your Score",
                     isPresented: $gameViewModel.alertPresented
                 ) {
                     Button("Ok") {
                         gameViewModel.startNewGame()
                     }
                 } message: {
-                    Text("Score: \(gameViewModel.scores)")
+                    Text("\(gameViewModel.scores)")
                 }
                 
                 Button("Start Again") {
